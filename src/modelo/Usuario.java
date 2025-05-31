@@ -23,5 +23,14 @@ public class Usuario {
 	public String getEmail() {
 		return email;
 	}
+	
+	@Override
+	public String toString() {
+		String relatorio = "Nome: " + this.nome;
+		relatorio += "CPF: " + this.cpf;
+		relatorio += "Email: " + this.email;
+		// TODO Auto-generated method stub
+		return relatorio;
+	}
 }
 

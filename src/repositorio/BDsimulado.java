@@ -10,15 +10,28 @@ public class BDsimulado {
 	private static HashMap<String, Usuario> usuarios = new HashMap<String, Usuario>();
 	private static HashMap<String, Emprestimo> emprestimos = new HashMap<String, Emprestimo>();
 	
-	public static boolean addLivro() {
-		
+	public static boolean addLivro(Livro l) {
+		if (livros.containsKey(l.getISBN())) {
+			return false;
+		}
+		return true;
 	}
 	
-	public static boolean removerLivro() {
-		
+	public static void removerLivro(String ISBN) {
+		livros.remove(ISBN);
+	}
+	
+	public static boolean addUsuario(Usuario u) {
+		if (usuarios.containsKey(u.getCpf())) {
+			return false;
+		}
+		return true;
+	}
+	
+	public static void removerUsuario(String cpf) {
+		usuarios.remove(cpf);
 	}
 }
 
 
-//removerLivro()
-//addLivro()
+

@@ -46,6 +46,12 @@ public class Livro {
 	@Override
 	public String toString() {
 		// TODO Auto-generated method stub
-		return super.toString();
+		String relatorio = "Titulo: " + this.titulo;
+		relatorio += "Autor:  " + this.autor;
+		relatorio += "Editora: " + this.editora;
+		relatorio += "ISBN: " + this.ISBN;
+		relatorio += "Ano de Publicação: " + this.anoPublicacao;
+		relatorio += "Quantidade de Exemplares" + this.quantidadeExemplares;
+		return relatorio;
 	}
 }
