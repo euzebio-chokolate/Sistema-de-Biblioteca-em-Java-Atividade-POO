@@ -19,35 +19,33 @@ public class Livro {
 		this.ISBN = ISBN;
 	}
 	
-	public void getTitulo() {
-		
+	public String getTitulo() {
+		return titulo;
 	}
 	
-	public void getAutor() {
-		
+	public String getAutor() {
+		return autor;
 	}
 	
-	public void getEditora() {
-		
+	public String getEditora() {
+		return editora;
 	}
 	
-	public void getConsultarPorISBN() {
-		
+	public int getAnoPublicacao() {
+		return anoPublicacao;
 	}
 	
-	public void getListarLivros() {
-		
+	public int getQuantidadeExemplares() {
+		return quantidadeExemplares;
 	}
 	
-	public void getBuscarPorAutor() {
-		
+	public int getISBN() {
+		return ISBN;
 	}
 	
-	public void setCadastrarLivro() {
-		
-	}
-	
-	public void setRemoverLivro() {
-		
+	@Override
+	public String toString() {
+		// TODO Auto-generated method stub
+		return super.toString();
 	}
 }
