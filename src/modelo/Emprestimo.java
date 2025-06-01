@@ -10,6 +10,7 @@ public class Emprestimo {
 		// TODO Auto-generated constructor stub
 	}
 	
+	//gets()
 	public Usuario getUsario() {
 		return usario;
 	}
