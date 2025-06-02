@@ -4,19 +4,20 @@ public class Livro {
 	private String titulo;
 	private String autor;
 	private String editora;
+	private String ISBN;
 	private int anoPublicacao;
 	private int quantidadeExemplares;
-	private int ISBN;
+	
 	
 	
 	//construtor
-	public Livro (String titulo, String autor, String editora, int anoPublicacao, int quantidadeExemplares, int ISBN) {
+	public Livro (String titulo, String autor, String editora, String ISBN, int anoPublicacao, int quantidadeExemplares) {
 		this.titulo = titulo;
 		this.autor = autor;
 		this.editora = editora;
+		this.ISBN = ISBN;
 		this.anoPublicacao = anoPublicacao;
 		this.quantidadeExemplares = quantidadeExemplares;
-		this.ISBN = ISBN;
 	}
 	
 	//gets()
@@ -32,6 +33,10 @@ public class Livro {
 		return editora;
 	}
 	
+	public String getISBN() {
+		return ISBN;
+	}
+	
 	public int getAnoPublicacao() {
 		return anoPublicacao;
 	}
@@ -40,9 +45,6 @@ public class Livro {
 		return quantidadeExemplares;
 	}
 	
-	public int getISBN() {
-		return ISBN;
-	}
 	
 	//sets()
 	public void setTitulo(String titulo) {
@@ -100,6 +102,6 @@ public class Livro {
 	@Override
 	public int hashCode() {
 		// TODO Auto-generated method stub
-		return Integer.hashCode(ISBN);
+		return ISBN.hashCode();
 	}
 }

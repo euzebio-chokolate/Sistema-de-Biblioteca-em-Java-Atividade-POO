@@ -14,13 +14,16 @@ public class BDsimulado {
 	private static HashMap<String, Usuario> usuarios = new HashMap<String, Usuario>();
 	private static List<Emprestimo> emprestimos =  new ArrayList<Emprestimo>();
 	
-	public static void addLivro(Livro livro) {
+	//Metodos de Livro
+	public static boolean addLivro(Livro livro) {
 		String ISBNstr = String.valueOf(livro.getISBN());
 		if (!livros.containsKey(ISBNstr)) {
 			livros.put(ISBNstr, livro);
+			return true;
 		}
 		else {
 			System.err.println("Livro já cadastrado com o ISBN: " + ISBNstr);
+			return false;
 		}
 	}
 	
@@ -46,9 +49,10 @@ public class BDsimulado {
 		if (autor == null || autor.trim().isEmpty()) {
 			return new ArrayList<Livro>();
 		}
-		return livros.values().stream().filter(livro -> livro.getAutor().equals(autor.trim())).collect(Collectors.toList());
+		return livros.values().stream().filter(livro -> livro.getAutor().equalsIgnoreCase(autor.trim())).collect(Collectors.toList());
 	}
 	
+	//Metodos de Usuario
 	public static boolean addUsuario(Usuario usuario) {
 		if (!usuarios.containsKey(usuario.getCpf())) {
 			usuarios.put(usuario.getCpf(), usuario);
@@ -71,13 +75,14 @@ public class BDsimulado {
 		usuarios.remove(cpf);
 	}
 	
+	//Metodos de Emprestimo
 	public static void addEmprestimo(Emprestimo emprestimo) {
 		// TODO Auto-generated method stub
 		emprestimos.add(emprestimo);
 	}
 	
 	public static List<Emprestimo> listarEmprestimos(){
-		return null;
+		return new ArrayList<Emprestimo>(emprestimos);
 	}
 }
 
