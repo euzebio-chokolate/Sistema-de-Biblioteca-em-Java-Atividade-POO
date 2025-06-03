@@ -1,7 +1,9 @@
 package servico;
 
+import java.time.LocalDate;
 import java.util.List;
 
+import modelo.Emprestimo;
 import modelo.Livro;
 import modelo.Usuario;
 import repositorio.BDsimulado;
@@ -109,10 +111,79 @@ public class Servico {
 		return BDsimulado.buscarUsuarioCPF(CPF);
 	}
 	
-	public List<Usuario> listarUsuarios() {
+	public static List<Usuario> listarUsuarios() {
 		// TODO Auto-generated method stub
 		return BDsimulado.listarUsuarios();
 	}
 	
+	public static boolean removerUsuario(String CPF) {
+		Usuario usuarioRemove = BDsimulado.buscarUsuarioCPF(CPF);
+		if(usuarioRemove == null) {
+			System.err.println("Usuário com o CPF: " + CPF + " não encontrado!!");
+			return false;
+		}
+		
+		boolean removido = BDsimulado.removerUsuario(CPF);
+		
+		if (removido) {
+			totalUsuarios--;
+			System.out.println("Usuário '" + usuarioRemove.getNome() + "' removido com sucesso!!");
+		}
+		return removido;
+	}
 	
+	public static int getTotalUsuarios() {
+		return totalUsuarios;
+	}
+	
+	
+	//Emprestimos
+	public static Emprestimo realizarEmprestimo(String ISBNlivro, String CPFusuario) {
+		Livro livro = BDsimulado.buscarLivroISBN(ISBNlivro);
+		Usuario usuario = BDsimulado.buscarUsuarioCPF(CPFusuario);
+		
+		if (livro == null) {
+			System.err.println("Livro com o ISBN " + ISBNlivro +" não encontrado!!");
+			return null;
+		}
+		if (usuario == null) {
+			System.err.println("Usuário com o CPF " + CPFusuario + " não encontrado!!" );
+			return null;
+		}
+		
+		if(livro.getQuantidadeExemplares() <= 1) {
+			System.err.println("Quantidade de exemplares do livro '" + livro.getTitulo() + "' insuficiente!");
+			return null;
+		}
+		
+		livro.setQuantidadeExemplares(livro.getQuantidadeExemplares() - 1);
+		
+		LocalDate dataEmprestimo = LocalDate.now();
+		
+		Emprestimo novoEmprestimo = new Emprestimo(usuario, livro, dataEmprestimo, dataEmprestimo);
+		BDsimulado.addEmprestimo(novoEmprestimo);
+		return novoEmprestimo;
+	}
+	
+	public static boolean registrarDevolucao(String ISBNlivro, String CPFusuario) {
+		Livro livro = BDsimulado.buscarLivroISBN(ISBNlivro);
+		Usuario usuario = BDsimulado.buscarUsuarioCPF(CPFusuario);
+		
+		if (livro == null) {
+			System.err.println("Livro com o ISBN " + ISBNlivro +" não encontrado para devolução!!");
+			return false;
+		}
+		
+		if (usuario == null) {
+			System.err.println("Usuário com o CPF " + CPFusuario + " não encontrado para devolução!!" );
+			return false;
+		}
+		
+		LocalDate dataDevolucao = LocalDate.now();
+		livro.setQuantidadeExemplares(livro.getQuantidadeExemplares() + 1);
+		
+		System.out.println("Devolução registrada com sucesso!");
+		return true;
+	}
 }
+

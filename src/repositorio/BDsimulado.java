@@ -71,8 +71,8 @@ public class BDsimulado {
 		return new ArrayList<Usuario>(usuarios.values());
 	}
 	
-	public static void removerUsuario(String cpf) {
-		usuarios.remove(cpf);
+	public static boolean removerUsuario(String cpf) {
+		return usuarios.remove(cpf) != null;
 	}
 	
 	//Metodos de Emprestimo
