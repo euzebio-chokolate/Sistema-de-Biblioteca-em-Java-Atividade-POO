@@ -1,6 +1,5 @@
 package aplicacao;
 
-import java.rmi.registry.Registry;
 import java.util.List;
 import java.util.Scanner;
 
@@ -37,7 +36,6 @@ public class Aplicacao {
 				System.out.println("\nQuantidade de Exemplares: ");
 				int quantidadeExemplares = Integer.parseInt(teclado.nextLine());
 				Servico.cadastrarLivros(titulo, autor, editora, ISBN, anoPublicacao, quantidadeExemplares);
-				System.out.println("Livro cadastrado com sucesso!");
 				break;	
 			}	
 			
@@ -46,7 +44,7 @@ public class Aplicacao {
 				System.out.println("Digite o ISBN do livro: ");
 				String ISBN = teclado.nextLine();
 				Livro livro = Servico.consultarLivroISBN(ISBN);
-				if(livro == null) {
+				if(livro != null) {
 					System.out.println("\nLivro Encontrado: " + livro);
 				}
 				else {
@@ -91,15 +89,19 @@ public class Aplicacao {
 			}	
 			
 			case 6: {
-				System.out.println("\n\tCadastrar Novo Usuário");
+				System.out.println("\n\tCadastrar Novo Usu�rio");
 				System.out.println("\nNome completo: ");
 				String nome = teclado.nextLine();
-				System.out.println("CPF");
+				System.out.println("CPF: ");
+				String CPF = teclado.nextLine();
+				System.out.println("\nEmail: ");
+				String email = teclado.nextLine();
+				Servico.cadastrarUsuario(nome, CPF, email);
 				break;
 			}	
 			
 			case 7: {
-				System.out.println("\n\tConsultar Usuário por CPF");
+				System.out.println("\n\tConsultar Usu�rio por CPF");
 				System.out.println("\nDigite o CPF do usuário que deseja encontrar: ");
 				String CPF = teclado.nextLine();
 				Usuario usuario = Servico.consultarUsuarioCPF(CPF);
@@ -113,7 +115,7 @@ public class Aplicacao {
 			}	
 			
 			case 8: {
-				System.out.println("\n\tLista de todos os Usuários cadastrados");
+				System.out.println("\n\tLista de todos os Usu�rios cadastrados");
 				List<Usuario> usuarios = Servico.listarUsuarios();
 				if(usuarios.isEmpty()) {
 					System.err.println("Nenhum usuário cadastrado!");
@@ -198,15 +200,15 @@ public class Aplicacao {
 			default:
 				System.out.println("Opcão Inválida");
 			}
-			
+			System.out.println("\nPrecione Enter para continuar...");
+			teclado.nextLine();
 		} while (opcao != 0);
-		System.out.println("\nPrecione Enter para continuar...");
-		teclado.nextLine();
+		
 	}
 	
 	public static void exibirMenu() {
         System.out.println("\n\tMENU DA BIBLIOTECA");
-        System.out.println("\n\tGerenciamento de Livros");
+        System.out.println("\n\tGerenciamento de Livros"); 
         System.out.println("1. Cadastrar Livro");
         System.out.println("2. Consultar Livro por ISBN");
         System.out.println("3. Listar Todos os Livros");

@@ -52,7 +52,7 @@ public class Emprestimo {
 	@Override
 	public String toString() {
 		// TODO Auto-generated method stub
-		String relatorio = "\tEmprestimo";
+		String relatorio = "\n\t===Emprestimo===";
 		relatorio += "\n\nLivro: " + livro.getTitulo();
 		relatorio += "\nUsuário: " + usuario.getNome();
 		relatorio += "\nData de Empréstimo: " + dataEmprestimo.format(formatter);

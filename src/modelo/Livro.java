@@ -75,7 +75,7 @@ public class Livro {
 	@Override
 	public String toString() {
 		// TODO Auto-generated method stub
-		String relatorio = "\tLivro";
+		String relatorio = "\n\t===Livro===";
 		relatorio += "\n\nTitulo: " + this.titulo;
 		relatorio += "\nAutor:  " + this.autor;
 		relatorio += "\nEditora: " + this.editora;

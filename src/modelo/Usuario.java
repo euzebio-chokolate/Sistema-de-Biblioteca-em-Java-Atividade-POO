@@ -36,7 +36,7 @@ public class Usuario {
 
 	@Override
 	public String toString() {
-		String relatorio = "\tUsuário"; 
+		String relatorio = "\n\t===Usuário==="; 
 		relatorio += "\n\nNome: " + this.nome;
 		relatorio += "\nCPF: " + this.cpf;
 		relatorio += "\nEmail: " + this.email;
