@@ -80,9 +80,13 @@ public class BDsimulado {
 		// TODO Auto-generated method stub
 		emprestimos.add(emprestimo);
 	}
-	
+	//historico
 	public static List<Emprestimo> listarEmprestimos(){
 		return new ArrayList<Emprestimo>(emprestimos);
+	}
+	
+	public static List<Emprestimo> listarEmprestimosAtivos(){
+		return emprestimos.stream().filter(e -> !e.devolvido()).collect(Collectors.toList());
 	}
 }
 

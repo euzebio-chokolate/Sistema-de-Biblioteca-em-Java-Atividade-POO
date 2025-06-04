@@ -2,6 +2,7 @@ package servico;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import modelo.Emprestimo;
 import modelo.Livro;
@@ -86,6 +87,10 @@ public class Servico {
 				totalExemplares += livro.getQuantidadeExemplares();
 			}
 		}
+	}
+	
+	public static List<Livro> listarLivrosDisponiveis(){
+		return BDsimulado.listarLivros().stream().filter(livro -> livro.getQuantidadeExemplares() > 1).collect(Collectors.toList());
 	}
 	
 	//Usuarios
@@ -184,6 +189,14 @@ public class Servico {
 		
 		System.out.println("Devolução registrada com sucesso!");
 		return true;
+	}
+	
+	public static List<Emprestimo> livrosEmprestados(){
+		return BDsimulado.listarEmprestimosAtivos();
+	}
+	
+	public static List<Emprestimo> listarHistoricoEmprestimo(){
+		return BDsimulado.listarEmprestimos();
 	}
 }
 
