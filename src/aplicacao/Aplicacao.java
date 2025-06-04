@@ -3,7 +3,6 @@ package aplicacao;
 import java.util.List;
 import java.util.Scanner;
 
-import jdk.internal.org.jline.terminal.TerminalBuilder.SystemOutput;
 import modelo.Livro;
 import modelo.Usuario;
 import servico.Servico;
