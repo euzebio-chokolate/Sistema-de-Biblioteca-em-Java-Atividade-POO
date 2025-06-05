@@ -86,9 +86,22 @@ public class BDsimulado {
 	}
 	
 	public static List<Emprestimo> listarEmprestimosAtivos(){
-		return emprestimos.stream().filter(e -> !e.devolvido()).collect(Collectors.toList());
+		return emprestimos.stream().filter(e -> !e.isDevolvido()).collect(Collectors.toList());
 	}
+	
+	public static Emprestimo buscarEmprestimoAtivo(Livro livro, Usuario usuario) {
+        if (livro == null || usuario == null) {
+        	return null;
+        }
+        for (Emprestimo emp : emprestimos) {
+            if (!emp.isDevolvido() && emp.getLivro().equals(livro) && emp.getUsuario().equals(usuario)) {
+                return emp;
+            }
+        }
+        return null;
+    }
 }
+
 
 
 

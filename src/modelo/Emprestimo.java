@@ -8,20 +8,22 @@ public class Emprestimo {
 	private Livro livro;
 	private Usuario usuario;
 	private LocalDate dataEmprestimo;
-	private LocalDate dataDevolucao;
+	private LocalDate dataDevolucaoPrevista;
+	private LocalDate dataDevolucaoReal;
 	
-	DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+	public static DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
 	
-	public Emprestimo(Usuario usuario, Livro livro, LocalDate dataEmprestimo, LocalDate dataDevolucao) {
+	public Emprestimo(Usuario usuario, Livro livro, LocalDate dataEmprestimo, LocalDate dataDevolucaoPrevista) {
 		// TODO Auto-generated constructor stub
 		this.livro = Objects.requireNonNull(livro, "Livro não pode ser nulo.");
 		this.usuario = Objects.requireNonNull(usuario, "Usuário não pode ser nulo.");
-		this.dataEmprestimo = Objects.requireNonNull(dataEmprestimo, "Data de Emprestimo não pode nulo.");
-		this.dataDevolucao = Objects.requireNonNull(dataDevolucao, "Data de Devolução não pode nulo.");
+		this.dataEmprestimo = (dataEmprestimo);
+		this.dataDevolucaoPrevista = (dataDevolucaoPrevista);
+		this.dataDevolucaoReal = null;
 	}
 	
 	//gets()
-	public Usuario getUsario() {
+	public Usuario getUsuario() {
 		return usuario;
 	}
 	
@@ -33,30 +35,39 @@ public class Emprestimo {
 		return dataEmprestimo;
 	}
 	
-	public LocalDate getDataDevolucao() {
-		return dataDevolucao;
+	public LocalDate getDataDevolucaoPrevista() {
+		return dataDevolucaoPrevista;
+	}
+	
+	public LocalDate getDataDevoluaoReal() {
+		return dataDevolucaoReal;
 	}
 	
 	//set()
-	public void setDataDevolucao(LocalDate dataDevolucao) {
-		this.dataDevolucao = dataDevolucao;
+	public void setDataDevolucaoReal(LocalDate dataDevoluaoReal) {
+		this.dataDevolucaoReal = dataDevoluaoReal;
 	}
 	
-	public boolean devolvido() {
-		if(this.dataDevolucao != null) {
-			return true;
-		}
-		return false;
+	public boolean isDevolvido() {
+		return this.dataDevolucaoReal != null;
 	}
 	
 	@Override
 	public String toString() {
 		// TODO Auto-generated method stub
+		String dataDevolucaoRealStr;
+		if (dataDevolucaoReal != null) {
+		    dataDevolucaoRealStr = dataDevolucaoReal.format(formatter);
+		}
+		else {
+		    dataDevolucaoRealStr = "Não devolvido";
+		}
 		String relatorio = "\n\t===Emprestimo===";
 		relatorio += "\n\nLivro: " + livro.getTitulo();
 		relatorio += "\nUsuário: " + usuario.getNome();
 		relatorio += "\nData de Empréstimo: " + dataEmprestimo.format(formatter);
-		relatorio += "\nData de Devolução: " + dataDevolucao.format(formatter);
+		relatorio += "\nData de Devolução Prevista: " + dataDevolucaoPrevista.format(formatter);
+		relatorio += "\nData de Devolução Real: " + dataDevolucaoRealStr;
 		relatorio += "\n\n====================================";
 		return relatorio;
 	}

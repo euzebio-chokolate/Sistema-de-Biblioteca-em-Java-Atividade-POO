@@ -62,11 +62,17 @@ public class Servico {
 			return false;
 		}
 		
+		 boolean emprestado = Servico.livrosEmprestados().stream().anyMatch(e -> e.getLivro().getISBN().equals(ISBN));
+		if (emprestado) {
+		    System.err.println("Livro '" + livroRemove.getTitulo() + "' não pode ser removido pois possui empréstimos ativos");
+		    return false;
+		}
+				
 		boolean removido = BDsimulado.removerLivro(ISBN);
 		
 		if(removido) {
 			totalExemplares -= livroRemove.getQuantidadeExemplares();
-			System.out.println("Livro '" + livroRemove.getTitulo() + "' removido com sucessor");
+			System.out.println("Livro '" + livroRemove.getTitulo() + "' removido com sucesso!!");
 		}
 		return removido;
 	}
@@ -128,6 +134,13 @@ public class Servico {
 			return false;
 		}
 		
+		boolean temEmprestimos = Servico.livrosEmprestados().stream().anyMatch(e -> e.getUsuario().getCpf().equals(CPF));
+
+	   if (temEmprestimos) {
+	        System.err.println("Usuário '" + usuarioRemove.getNome() + "' não pode ser removido pois possui empréstimos ativos");
+	        return false;
+	   }
+		
 		boolean removido = BDsimulado.removerUsuario(CPF);
 		
 		if (removido) {
@@ -161,12 +174,19 @@ public class Servico {
 			return null;
 		}
 		
+		if (BDsimulado.buscarEmprestimoAtivo(livro, usuario) != null) {
+            System.err.println("Usuário '" + usuario.getNome() + "' já possui um empréstimo ativo para o livro '" + livro.getTitulo() + "'");
+            return null;
+        }
+		
 		livro.setQuantidadeExemplares(livro.getQuantidadeExemplares() - 1);
 		
 		LocalDate dataEmprestimo = LocalDate.now();
+		LocalDate dataDevolucaoPrevista = dataEmprestimo.plusDays(7);
 		
-		Emprestimo novoEmprestimo = new Emprestimo(usuario, livro, dataEmprestimo, dataEmprestimo);
+		Emprestimo novoEmprestimo = new Emprestimo(usuario, livro, dataEmprestimo, dataDevolucaoPrevista);
 		BDsimulado.addEmprestimo(novoEmprestimo);
+		System.out.println("Empréstimo realizado: Livro '" + livro.getTitulo() + "' para Usuário '" + usuario.getNome() + "'. \nDevolução prevista: " + dataDevolucaoPrevista.format(Emprestimo.formatter));
 		return novoEmprestimo;
 	}
 	
@@ -184,7 +204,14 @@ public class Servico {
 			return false;
 		}
 		
-		LocalDate dataDevolucao = LocalDate.now();
+		Emprestimo emprestimoParaDevolver = BDsimulado.buscarEmprestimoAtivo(livro, usuario);
+		
+		if (emprestimoParaDevolver == null) {
+            System.err.println("Nenhum empréstimo ativo encontrado para o livro '" + livro.getTitulo() + "' pelo usuário '" + usuario.getNome() + "'");
+            return false;
+        }
+		
+		emprestimoParaDevolver.setDataDevolucaoReal(LocalDate.now());
 		livro.setQuantidadeExemplares(livro.getQuantidadeExemplares() + 1);
 		
 		System.out.println("Devolução registrada com sucesso!");

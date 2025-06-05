@@ -1,5 +1,7 @@
 package modelo;
 
+import java.util.Objects;
+
 public class Usuario {
 	private String nome;
 	private String cpf;
@@ -47,21 +49,19 @@ public class Usuario {
 	
 	@Override
 	public boolean equals(Object obj) {
-		// TODO Auto-generated method stub
-		if (this == obj) {
-			return true;
-		}
-		if (obj == null || getClass() != obj.getClass()) {
-			return false;
-		}
-		Usuario usuario = (Usuario) obj;
-		return this.cpf.equals(usuario.cpf);
-	}
+        if (this == obj) {
+        	return true;
+        }
+        if (!(obj instanceof Usuario)) {
+        	return false;
+        }
+        Usuario other = (Usuario) obj;
+        return Objects.equals(this.cpf, other.cpf);
+    }
 	
 	@Override
 	public int hashCode() {
 		// TODO Auto-generated method stub
-		
 		return cpf.hashCode();
 	}
 }

@@ -1,5 +1,7 @@
 package modelo;
 
+import java.util.Objects;
+
 public class Livro {
 	private String titulo;
 	private String autor;
@@ -88,16 +90,15 @@ public class Livro {
 	
 	@Override
 	public boolean equals(Object obj) {
-		// TODO Auto-generated method stub
-		if (this == obj) {
-			return true;
-		}
-		if (obj == null || getClass() != obj.getClass()) {
-			return false;
-		}
-		Livro livro = (Livro) obj;
-		return this.ISBN == livro.ISBN;
-	}
+        if (this == obj) {
+        	return true;
+        }
+        if (!(obj instanceof Livro)) {
+        	return false;
+        }
+        Livro other = (Livro) obj;
+        return Objects.equals(this.ISBN, other.ISBN);
+    }
 	
 	@Override
 	public int hashCode() {
