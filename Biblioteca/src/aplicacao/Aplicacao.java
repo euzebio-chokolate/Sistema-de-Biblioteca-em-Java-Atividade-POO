@@ -53,10 +53,10 @@ public class Aplicacao {
 				String ISBN = teclado.nextLine();
 				Livro livro = Servico.consultarLivroISBN(ISBN);
 				if(livro != null) {
-					System.out.println("\nLivro Encontrado: " + livro);
+					System.out.println("\nLivro Encontrado: \n" + livro);
 				}
 				else {
-					System.out.println("\nLivro com o ISBN " + ISBN + " não encontrado!");
+					System.err.println("\nLivro com o ISBN " + ISBN + " não encontrado!");
 				}
 				break;
 			}		

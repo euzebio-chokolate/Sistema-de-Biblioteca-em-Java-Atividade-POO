@@ -43,7 +43,7 @@ public class Servico {
 		Livro novoLivro = new Livro(titulo, autor, editora, ISBN, ano, quantidadeExemplares);
 		BDsimulado.addLivro(novoLivro);
 		totalExemplares += quantidadeExemplares;
-		System.out.println("Livro '" + novoLivro.getTitulo() + "' cadastrado na biblioteca!!");
+		System.out.println("\nLivro '" + novoLivro.getTitulo() + "' cadastrado na biblioteca!!");
 		return novoLivro;
 	}
 	
